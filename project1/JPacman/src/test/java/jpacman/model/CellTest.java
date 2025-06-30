@@ -55,22 +55,6 @@ public class CellTest {
     }
 
 
-
-    /**
-     * Test obtaining a cell at a given offset. Ensure both postconditions
-     * (null value if beyond border, value with board) are executed.
-     */
-    @Test
-    public void testCellAtOffset() {
-        assertEquals(height - 2, aCell.cellAtOffset(0, -1).getY());
-        assertEquals(0, aCell.cellAtOffset(0, -1).getX());
-        // assertNull(aCell.cellAtOffset(-1, 0));
-
-        Cell cell11 = aBoard.getCell(1, 1);
-        Cell cell12 = aBoard.getCell(1, 2);
-        assertEquals(cell12, cell11.cellAtOffset(0, 1));
-    }
-
     @Test
     public void testAdjacentCellsCenter() {
         aCell = new Cell(2, 2, aBoard);

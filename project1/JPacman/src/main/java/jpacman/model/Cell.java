@@ -196,16 +196,16 @@ public class Cell {
         assert invariant();
         assert otherCell != null;
 
-        int x = otherCell.x;
-        int y = otherCell.y;
+        int x = otherCell.getX();
+        int y = otherCell.getY();
 
         return
         // Position
         (
-            x == this.x+1 && y == this.y ||
-            x == this.x-1 && y == this.y ||
-            x == this.x && y == this.y-1 ||
-            x == this.x && y == this.y+1
+            x == this.getX()+1 && y == this.getY() ||
+            x == this.getX()-1 && y == this.getY() ||
+            x == this.getX() && y == this.getY()-1 ||
+            x == this.getX() && y == this.getY()+1
         )
         // Board
         && otherCell.board == this.board;

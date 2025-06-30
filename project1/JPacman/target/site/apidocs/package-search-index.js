@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"jpacman.controller"},{"l":"jpacman.model"}];updateSearchResults();
