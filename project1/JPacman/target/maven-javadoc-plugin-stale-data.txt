@@ -1,0 +1,52 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+--class-path
+'/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/jpacman-3.0.1.jar:/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/classes:/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/test-classes:/home/steen/.m2/repository/junit/junit/4.4/junit-4.4.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/steen/Documents/Summer_school_software_testing/project1/JPacman/src/test/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'jpacman 3.0.1 Test API'
+-link
+'../apidocs'
+-use
+-version
+-windowtitle
+'jpacman 3.0.1 Test API'
+jpacman
+jpacman.model
+jpacman.controller
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/src/test/java = 1487886892000
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/member-search-index.js = 1751285668776
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/package-search-index.js = 1751285668775
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/index.html = 1751285668751
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/element-list = 1751285668677
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/type-search-index.js = 1751285668775
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/allclasses-index.html = 1751285668771
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/tag-search-index.js = 1751285668776
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/overview-summary.html = 1751285668802
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/copy.svg = 1751285668808
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/allpackages-index.html = 1751285668773
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/link.svg = 1751285668809
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/overview-tree.html = 1751285668746
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/stylesheet.css = 1751285668807
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/module-search-index.js = 1751285668774
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/search.html = 1751285668800
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/search.js = 1751285668810
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/search-page.js = 1751285668811
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/index-all.html = 1751285668798
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/script.js = 1751285668808
+/home/steen/Documents/Summer_school_software_testing/project1/JPacman/target/site/testapidocs/help-doc.html = 1751285668806

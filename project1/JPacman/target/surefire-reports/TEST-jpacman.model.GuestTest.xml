@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="jpacman.model.GuestTest" time="0.011" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="java.vm.version" value="21.0.7+6-Ubuntu-0ubuntu124.04"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-21-openjdk-amd64/lib"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/home/steen/Documents/Summer_school_software_testing/project1/JPacman"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="java.runtime.version" value="21.0.7+6-Ubuntu-0ubuntu124.04"/>
+    <property name="basedir" value="/home/steen/Documents/Summer_school_software_testing/project1/JPacman"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="os.name" value="Linux"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="java.class.version" value="65.0"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="6.8.0-60-generic"/>
+    <property name="user.home" value="/home/steen"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="21"/>
+    <property name="user.name" value="steen"/>
+    <property name="java.class.path" value="/home/steen/.m2/repository/org/apache/maven/surefire/surefire-booter/2.3/surefire-booter-2.3.jar:/home/steen/.m2/repository/org/apache/maven/surefire/surefire-api/2.3/surefire-api-2.3.jar:/home/steen/.m2/repository/org/codehaus/plexus/plexus-utils/1.1/plexus-utils-1.1.jar:/home/steen/.m2/repository/commons-lang/commons-lang/2.1/commons-lang-2.1.jar:/home/steen/.m2/repository/org/codehaus/plexus/plexus-archiver/1.0-alpha-7/plexus-archiver-1.0-alpha-7.jar:/home/steen/.m2/repository/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.jar:/home/steen/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/home/steen/.m2/repository/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="sun.java.command" value="org.apache.maven.surefire.booter.SurefireBooter /tmp/surefire17288148646962214428tmp /tmp/surefire6106457356467113329tmp"/>
+    <property name="java.home" value="/usr/lib/jvm/java-21-openjdk-amd64"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.version" value="21.0.7"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="localRepository" value="/home/steen/.m2/repository"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.version.date" value="2025-04-15"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-21"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.cpu.endian" value="little"/>
+  </properties>
+  <testcase name="testOccupyDeoccupy" time="0.004"/>
+</testsuite>
