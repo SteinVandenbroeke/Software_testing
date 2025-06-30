@@ -16,11 +16,7 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.13</version>
-    </dependency>
+
   </dependencies>
 
   <build>
@@ -29,7 +25,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.8</source>
+          <source>21</source>
           <target>21</target>
         </configuration>
       </plugin>
@@ -50,12 +46,41 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.5.2</version>
         <configuration>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
           <forkMode>pertest</forkMode>
-          <argLine>-disableassertions</argLine>
+<!--          <argLine>-disableassertions</argLine>-->
+<!--          <argLine>${surefireArgLine} -Xmx1024m -noverify</argLine>-->
         </configuration>
       </plugin>
+
+
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.12</version>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+<!--                <configuration>-->
+<!--                  <append>true</append>-->
+<!--                  <propertyName>surefireArgLine</propertyName>-->
+<!--                </configuration>-->
+              </execution>
+              <execution>
+                <id>report</id>
+                <phase>test</phase>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
 
 
     </plugins>
@@ -73,6 +98,20 @@
         <groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-javadoc-plugin</artifactId>
       </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
     </plugins>
+
+
+
   </reporting>
 </project>
