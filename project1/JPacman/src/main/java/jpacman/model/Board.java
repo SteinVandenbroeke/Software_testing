@@ -141,8 +141,7 @@ public class Board {
      * @return True iff (x,y) is on the board.
      */
     public boolean withinBorders(int x, int y) {
-         // TODO actual implementation left as an exercise.
-         return true;
+         return x >= 0 && y >= 0 && x < width && y < height;
     }
 
     /**
