@@ -72,6 +72,55 @@ public class CellTest {
     }
 
     @Test
+    public void testAdjacentCellsCenter() {
+        aCell = new Cell(2, 2, aBoard);
+        cellUp = new Cell(aCell.getX(), aCell.getY()-1, aBoard);
+        cellDown = new Cell(aCell.getX(), aCell.getY()+1, aBoard);
+        cellRight = new Cell(aCell.getX()+1, aCell.getY(), aBoard);
+        cellLeft = new Cell(aCell.getX()-1, aCell.getY(), aBoard);
+
+        assertTrue(aCell.adjacent(cellUp));
+        assertTrue(aCell.adjacent(cellDown));
+        assertTrue(aCell.adjacent(cellRight));
+        assertTrue(aCell.adjacent(cellLeft));
+    }
+
+    @Test
+    public void testAdjacentCellsCorner() {
+        aCell = new Cell(0, 0, aBoard);
+        cellDown = new Cell(aCell.getX(), aCell.getY()+1, aBoard);
+        cellRight = new Cell(aCell.getX()+1, aCell.getY(), aBoard);
+
+        assertTrue(aCell.adjacent(cellDown));
+        assertTrue(aCell.adjacent(cellRight));
+    }
+
+    @Test
+    public void testAdjacentCellsBorder() {
+        aCell = new Cell(0, 2, aBoard);
+        cellUp = new Cell(aCell.getX(), aCell.getY()-1, aBoard);
+        cellDown = new Cell(aCell.getX(), aCell.getY()+1, aBoard);
+        cellRight = new Cell(aCell.getX()+1, aCell.getY(), aBoard);
+
+        assertTrue(aCell.adjacent(cellDown));
+        assertTrue(aCell.adjacent(cellUp));
+        assertTrue(aCell.adjacent(cellRight));
+    }
+
+    @Test
+    public void testNotAdjacentCells() {
+        aCell = new Cell(2, 2, aBoard);
+        Cell bcell = new Cell(aCell.getX(), aCell.getY()-2, aBoard);
+        assertFalse(aCell.adjacent(bcell));
+
+        bcell = new Cell(aCell.getX() - 2, aCell.getY(), aBoard);
+        assertFalse(aCell.adjacent(bcell));
+
+        bcell = new Cell(aCell.getX() - 2, aCell.getY() - 2, aBoard);
+        assertFalse(aCell.adjacent(bcell));
+    }
+
+    @Test
     public void testAdjacentCellsBoard() {
         assertFalse(cellNewBoard.adjacent(aCell));
     }

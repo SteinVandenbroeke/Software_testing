@@ -193,8 +193,12 @@ public class Cell {
      * @return true if the other cell is immediately adjacent .
      */
     public boolean adjacent(Cell otherCell) {
+        assert invariant();
+        assert otherCell != null;
+
         int x = otherCell.x;
         int y = otherCell.y;
+
         return
         // Position
         (
