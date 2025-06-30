@@ -1,14 +1,12 @@
 package jpacman.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -21,7 +19,7 @@ public class CellMockTest {
     @Mock
     Board board2;
 
-    @BeforeEach
+    @Before
     public void setup() {
         MockitoAnnotations.openMocks(this);
         when(board1.withinBorders(anyInt(), anyInt())).thenReturn(true);
@@ -70,11 +68,8 @@ public class CellMockTest {
         Cell cell2 = Mockito.mock(Cell.class);
         when(cell2.getBoard()).thenReturn(board2);
 
-
-        // Create Cells with mocked boards
         Cell cell1 = new Cell(1, 1, board1);
 
-        //Compare the to test cell with the mocked cell
         assertFalse(cell1.adjacent(cell2));
     }
 
