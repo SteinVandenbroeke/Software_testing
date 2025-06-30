@@ -186,4 +186,26 @@ public class Cell {
         assert invariant();
         return board;
     }
+
+    /**
+     * Determine if the other cell is an immediate neighbour
+     * of the current cell (up , down, left or right) .
+     * @return true if the other cell is immediately adjacent .
+     */
+    public boolean adjacent(Cell otherCell) {
+        int x = otherCell.x;
+        int y = otherCell.y;
+        return
+
+        // Position
+        (
+            x == this.x+1 && y == this.y ||
+            x == this.x-1 && y == this.y ||
+            x == this.x && y == this.y-1 ||
+            x == this.x && y == this.y+1
+        )
+        // Board
+        && otherCell.board == this.board;
+    }
+
 }
