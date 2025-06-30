@@ -21,12 +21,13 @@ public class CellTest {
     /**
      * The board the cells occur on.
      */
-    private Board aBoard;
+    private Board aBoard, bBoard;
 
     /**
      * The "Cell Under Test".
      */
-    private Cell aCell, diagonalCell, cellUp, cellDown, cellLeft, cellRight;
+    private Cell aCell, diagonalCell1, diagonalCell2, diagonalCell3, diagonalCell4;
+    private Cell cellUp, cellDown, cellLeft, cellRight, cellNewBoard;
 
     /**
      * Actually create the board and the cell. *
@@ -34,9 +35,19 @@ public class CellTest {
     @Before
     public void setUpBoard() {
         aBoard = new Board(width, height);
+        bBoard = new Board(width, height);
         // put the cell on an invariant boundary value.
         aCell = new Cell(0, height - 1, aBoard);
-        diagonalCell = new Cell(aCell.getX()+1, aCell.getY()+1, aBoard);
+
+        cellNewBoard = new Cell(0, height - 1, bBoard);
+
+        //
+        diagonalCell1 = new Cell(aCell.getX()+1, aCell.getY()+1, aBoard);
+        diagonalCell2 = new Cell(aCell.getX()-1, aCell.getY()+1, aBoard);
+        diagonalCell3 = new Cell(aCell.getX()+1, aCell.getY()-1, aBoard);
+        diagonalCell4 = new Cell(aCell.getX()-1, aCell.getY()-1, aBoard);
+
+
         cellUp = new Cell(aCell.getX(), aCell.getY()-1, aBoard);
         cellDown = new Cell(aCell.getX(), aCell.getY()+1, aBoard);
         cellRight = new Cell(aCell.getX()+1, aCell.getY(), aBoard);
@@ -62,18 +73,15 @@ public class CellTest {
 
     @Test
     public void testAdjacentCellsBoard() {
-
+        assertFalse(cellNewBoard.adjacent(aCell));
     }
 
     @Test
     public void testAdjacentDiagonal() {
-        assertFalse(diagonalCell.adjacent(aCell));
-        //diagonalCell = diagonalCell.cellAtOffset(-2, 0);
-        //System.out.println("Cell loc: " + diagonalCell.getX() + ", " + diagonalCell.getY());
-        //assertFalse(diagonalCell.adjacent(aCell));
-        /*diagonalCell.cellAtOffset(0, -2);
-        assertFalse(diagonalCell.adjacent(aCell));
-        diagonalCell.cellAtOffset(2, 0);*/
+        assertFalse(diagonalCell1.adjacent(aCell));
+        assertFalse(diagonalCell2.adjacent(aCell));
+        assertFalse(diagonalCell3.adjacent(aCell));
+        assertFalse(diagonalCell4.adjacent(aCell));
     }
 
 }

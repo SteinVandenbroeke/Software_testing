@@ -196,7 +196,6 @@ public class Cell {
         int x = otherCell.x;
         int y = otherCell.y;
         return
-
         // Position
         (
             x == this.x+1 && y == this.y ||
