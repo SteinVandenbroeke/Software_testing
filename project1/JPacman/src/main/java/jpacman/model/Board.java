@@ -141,7 +141,8 @@ public class Board {
      * @return True iff (x,y) is on the board.
      */
     public boolean withinBorders(int x, int y) {
-         return true;
+        assert invariant();
+        return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
     }
 
     /**
