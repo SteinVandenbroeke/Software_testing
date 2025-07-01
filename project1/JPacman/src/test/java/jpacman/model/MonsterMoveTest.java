@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 public class MonsterMoveTest extends MoveTest {
@@ -73,7 +72,7 @@ public class MonsterMoveTest extends MoveTest {
         // Move is invalid
         assertFalse(m.tryMoveToGuest(w));
         // The location is the same as the original
-        assertEquals(this.m.getLocation(), new Cell(0, 1, b));
+        assertEquals(this.m.getLocation(), new Cell(1, 0, b));
     }
 
     @Test
@@ -94,6 +93,8 @@ public class MonsterMoveTest extends MoveTest {
     @Test
     public void testMoveToMonster() {
         Move m = createMove(b.getCell(2,0));
+        assertFalse(m.tryMoveToGuest(p));
+        assertEquals(this.m.getLocation(), new Cell(1, 0, b));
     }
 
     @Test
