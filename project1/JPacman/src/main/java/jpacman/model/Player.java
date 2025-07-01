@@ -108,6 +108,14 @@ public class Player extends MovingGuest {
         return false;
     }
 
+    @Override
+    protected boolean meetMonster(MonsterMove theMove){
+        assert guestInvariant();
+        assert theMove != null;
+        assert !theMove.initialized();
+        this.die();
+        return true;
+    }
 
     /**
      * @see jpacman.model.Guest#guestType()

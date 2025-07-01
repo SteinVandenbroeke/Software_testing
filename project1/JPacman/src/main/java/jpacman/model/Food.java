@@ -69,6 +69,23 @@ public class Food extends Guest {
         return true;
     }
 
+    /**
+     * The player wants to eat this food cell. Modify the move's state to
+     * reflect the effect this would have. Precondition: the move is in its
+     * initialization stage.
+     *
+     * @see jpacman.model.Guest#meetPlayer(jpacman.model.PlayerMove)
+     * @param theMove the move the player intends to do.
+     * @return True, since such a move is possible.
+     */
+    @Override
+    protected boolean meetMonster(MonsterMove theMove) {
+        assert foodInvariant();
+        assert theMove != null;
+        assert !theMove.initialized();
+        return true;
+    }
+
 
     /**
      * @see jpacman.model.Guest#guestType()
