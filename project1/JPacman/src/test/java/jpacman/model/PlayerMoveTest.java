@@ -49,4 +49,15 @@ public class PlayerMoveTest extends MoveTest {
         aPlayerMove = new PlayerMove(thePlayer, target);
         return aPlayerMove;
     }
+
+    //  playerCell, wallCell, monsterCell, foodCell, emptyCell;
+    @Test
+    public void testPlayerMoveEmptyCell(){
+        PlayerMove playermove =  createMove(emptyCell);
+        assertTrue(playermove.movePossible());
+        playermove.apply();
+        assertEquals(thePlayer.getLocation(), emptyCell);
+    }
+
+
 }
