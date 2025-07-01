@@ -163,6 +163,7 @@ public abstract class Move {
         return withinBorder()
            && targetCellAvailable
            && !playerDies()
+           && this.mover.getLocation().adjacent(this.to)
            && !moveDone();
     }
 
