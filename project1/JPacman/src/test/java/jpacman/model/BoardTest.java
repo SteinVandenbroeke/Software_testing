@@ -1,12 +1,13 @@
 package jpacman.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import jpacman.TestUtils;
+import org.mockito.Mockito;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 /**
  * One of the simpler test classes, so a good point to start understanding
@@ -112,5 +113,56 @@ public class BoardTest {
         // else: nothing to test -- no guarantees what so ever!
     }
 
+    @Test
+    public void testOff() {
+        Cell c1 = this.mockCell(width, 0, this.theBoard);
+        Cell c2 = this.mockCell(0, height, this.theBoard);
+        Cell c3 = this.mockCell(width, height, this.theBoard);
+        Cell c4 = this.mockCell(-1, height, this.theBoard);
+        Cell c5 = this.mockCell(width, -1, this.theBoard);
+        assertFalse(this.theBoard.withinBorders(c1.getX(), c1.getY()));
+        assertFalse(this.theBoard.withinBorders(c2.getX(), c2.getY()));
+        assertFalse(this.theBoard.withinBorders(c3.getX(), c3.getY()));
+        assertFalse(this.theBoard.withinBorders(c4.getX(), c4.getY()));
+        assertFalse(this.theBoard.withinBorders(c5.getX(), c5.getY()));
+    }
+    @Test
+    public void testOn() {
+        Cell c1 = new Cell(width-1, height-1, this.theBoard);
+        Cell c2 = new Cell(0, height-1, this.theBoard);
+        Cell c3 = new Cell(width-1, 0, this.theBoard);
+        Cell c4 = new Cell(0, 0, this.theBoard);
+        assertTrue(this.theBoard.withinBorders(c1.getX(), c1.getY()));
+        assertTrue(this.theBoard.withinBorders(c2.getX(), c2.getY()));
+        assertTrue(this.theBoard.withinBorders(c3.getX(), c3.getY()));
+        assertTrue(this.theBoard.withinBorders(c4.getX(), c4.getY()));
+    }
+
+    @Test
+    public void testIn() {
+        Cell c = new Cell(width/2, height/2, this.theBoard);
+        assertTrue(this.theBoard.withinBorders(c.getX(), c.getY()));
+    }
+
+    @Test
+    public void testOut() {
+        Cell c1 = this.mockCell(width*2, height/2, this.theBoard);
+        Cell c2 = this.mockCell(width/2, height*2, this.theBoard);
+        Cell c3 = this.mockCell(width/2, -height*2, this.theBoard);
+        Cell c4 = this.mockCell(-width*2, -height*2, this.theBoard);
+        assertFalse(theBoard.withinBorders(c1.getX(), c1.getY()));
+        assertFalse(theBoard.withinBorders(c2.getX(), c2.getY()));
+        assertFalse(theBoard.withinBorders(c3.getX(), c3.getY()));
+        assertFalse(theBoard.withinBorders(c4.getX(), c4.getY()));
+    }
+
+    private Cell mockCell(int x, int y, Board b) {
+        Cell cell2 = Mockito.mock(Cell.class);
+        when(cell2.getX()).thenReturn(x);
+        when(cell2.getY()).thenReturn(y);
+        when(cell2.getBoard()).thenReturn(b);
+        when(cell2.invariant()).thenReturn(true);
+        return cell2;
+    }
 
 }
