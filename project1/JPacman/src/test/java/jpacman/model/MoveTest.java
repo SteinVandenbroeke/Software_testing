@@ -55,7 +55,6 @@ public abstract class MoveTest extends GameTestCase {
         assertEquals(mover, location2.getInhabitant());
         assertTrue(aMove.moveDone());
         assertFalse(aMove.movePossible());
-
     }
 
 

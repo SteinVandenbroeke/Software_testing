@@ -42,7 +42,7 @@ import jpacman.model.PlayerMoveTest;
     EngineTest.class,
     ObserverTest.class,
     PlayerMoveTest.class,
-    ImageFactoryTest.class
+    ImageFactoryTest.class,
 })
 
 public final class TestAll  {

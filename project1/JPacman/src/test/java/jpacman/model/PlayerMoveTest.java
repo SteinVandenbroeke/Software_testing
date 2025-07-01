@@ -57,7 +57,46 @@ public class PlayerMoveTest extends MoveTest {
         assertTrue(playermove.movePossible());
         playermove.apply();
         assertEquals(thePlayer.getLocation(), emptyCell);
+        assertFalse(theGame.playerDied());
+        assertFalse(theGame.playerWon());
     }
 
+    @Test
+    public void testPlayerMoveCellWithinBorders(){
+        PlayerMove playermove =  createMove(thePlayer.getLocation().cellAtOffset(1,0));
+        assertTrue(playermove.movePossible());
 
+        playermove =  createMove(thePlayer.getLocation().cellAtOffset(2,1));
+        assertFalse(playermove.movePossible());
+        assertFalse(theGame.playerDied());
+        assertFalse(theGame.playerWon());
+    }
+
+    @Test
+    public void testPlayerMoveCellWithMonster(){
+        PlayerMove playermove =  createMove(monsterCell);
+        assertFalse(playermove.movePossible());
+        assertTrue(playermove.playerDies());
+        assertFalse(theGame.playerWon());
+    }
+
+    @Test
+    public void testPlayerMoveFoodCell(){
+        PlayerMove playermove =  createMove(foodCell);
+        assertTrue(playermove.movePossible());
+        int old_food = thePlayer.getPointsEaten();
+        playermove.apply();
+        int new_food = thePlayer.getPointsEaten();
+        assertEquals(old_food+1, new_food);
+        assertFalse(theGame.playerWon());
+        assertFalse(theGame.playerDied());
+    }
+
+    @Test
+    public void testPlayerMoveWall(){
+        PlayerMove playermove =  createMove(wallCell);
+        assertFalse(playermove.movePossible());
+        assertFalse(theGame.playerDied());
+        assertFalse(theGame.playerWon());
+    }
 }
