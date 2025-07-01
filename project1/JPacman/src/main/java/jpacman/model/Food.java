@@ -83,7 +83,7 @@ public class Food extends Guest {
         assert foodInvariant();
         assert theMove != null;
         assert !theMove.initialized();
-        return true;
+        return false;
     }
 
 
