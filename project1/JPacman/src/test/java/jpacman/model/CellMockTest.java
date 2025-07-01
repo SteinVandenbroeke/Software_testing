@@ -12,10 +12,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class CellMockTest {
-
     @Mock
     Board board1;
-
     @Mock
     Board board2;
 
@@ -47,6 +45,18 @@ public class CellMockTest {
         Cell cellRight = new Cell(aCell.getX()+1, aCell.getY(), board1);
 
         assertTrue(aCell.adjacent(cellDown));
+        assertTrue(aCell.adjacent(cellRight));
+    }
+
+    @Test
+    public void testAdjacentCellsBorder() {
+        Cell aCell = new Cell(0, 2, board1);
+        Cell cellUp = new Cell(aCell.getX(), aCell.getY()-1, board1);
+        Cell cellDown = new Cell(aCell.getX(), aCell.getY()+1, board1);
+        Cell cellRight = new Cell(aCell.getX()+1, aCell.getY(), board1);
+
+        assertTrue(aCell.adjacent(cellDown));
+        assertTrue(aCell.adjacent(cellUp));
         assertTrue(aCell.adjacent(cellRight));
     }
 

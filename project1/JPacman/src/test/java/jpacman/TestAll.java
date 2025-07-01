@@ -9,7 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import jpacman.controller.ImageFactoryTest;
 
 import jpacman.model.BoardTest;
-import jpacman.model.CellTest;
+import jpacman.model.CellMockTest;
 import jpacman.model.EngineTest;
 import jpacman.model.GameTest;
 import jpacman.model.ObserverTest;
@@ -37,7 +37,7 @@ import jpacman.model.PlayerMoveTest;
 @SuiteClasses({
     PacmanTest.class,
     BoardTest.class,
-    CellTest.class,
+        CellMockTest.class,
     GameTest.class,
     EngineTest.class,
     ObserverTest.class,
