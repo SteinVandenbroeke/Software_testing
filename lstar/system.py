@@ -31,6 +31,7 @@ class System(aalpy.SUL):
     def step(self, letter: Symbol):
         if letter is None:
             return False
+
         match self.state:
             case State.OFF:
                 if letter == "power":
