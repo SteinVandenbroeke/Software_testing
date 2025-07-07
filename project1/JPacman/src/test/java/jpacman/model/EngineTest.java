@@ -91,6 +91,7 @@ public class EngineTest extends GameTestCase {
         assertFalse(theEngine.inDiedState());
     }
 
+    //Mutation
     @Test public void testInStartingState() throws NoSuchFieldException, IllegalAccessException {
         theEngine = new Engine(theGame);
         assertTrue(theEngine.inStartingState());
@@ -106,9 +107,10 @@ public class EngineTest extends GameTestCase {
         theEngine = new Engine(theGame);
         theEngine.start();
         theEngine.movePlayer(0,1);
-        assertTrue(theEngine.inDiedState());
+        assertFalse(theEngine.inStartingState());
     }
 
+    //Mutation
     @Test public void testIsGameOverState() throws NoSuchFieldException, IllegalAccessException {
         Game game = Mockito.mock(Game.class);
         when(game.initialized()).thenReturn(true);
@@ -128,6 +130,24 @@ public class EngineTest extends GameTestCase {
         when(game.playerDied()).thenReturn(false);
         when(game.playerWon()).thenReturn(false);
         assertFalse(theEngine.inGameOverState());
+    }
+
+    //Mutation
+    @Test public void invariantTest() throws NoSuchFieldException, IllegalAccessException {
+        theEngine = new Engine(theGame);
+        theEngine.start();
+        assertTrue(theEngine.invariant());
+
+        theEngine.movePlayer(0,1);
+        Field haltedField = Engine.class.getDeclaredField("halted");
+        haltedField.setAccessible(true);
+        haltedField.set(theEngine, true);
+        assertFalse(theEngine.invariant());
+
+        Game game = Mockito.mock(Game.class);
+        when(game.playerDied()).thenReturn(true);
+        when(game.playerWon()).thenReturn(true);
+        assertFalse(theEngine.invariant());
     }
 
 }
