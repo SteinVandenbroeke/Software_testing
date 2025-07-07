@@ -2,6 +2,7 @@ package jpacman.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
@@ -10,6 +11,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.lang.reflect.Field;
 
 public class CellMockTest {
     @Mock
@@ -96,5 +99,53 @@ public class CellMockTest {
         assertFalse(diagonalCell2.adjacent(aCell));
         assertFalse(diagonalCell3.adjacent(aCell));
         assertFalse(diagonalCell4.adjacent(aCell));
+    }
+
+    //Survived Mutant 3.java
+    @Test
+    public void testBoardInvariant() throws NoSuchFieldException, IllegalAccessException {
+        when(board1.withinBorders(anyInt(), anyInt())).thenReturn(true);
+        Cell cell = new Cell(0, 0, board1);
+
+        Field boardField = Cell.class.getDeclaredField("board");
+        boardField.setAccessible(true);
+        boardField.set(cell, null);
+        assertFalse(cell.boardInvariant());
+
+        when(board1.withinBorders(anyInt(), anyInt())).thenReturn(true);
+        cell = new Cell(0, 0, board1);
+        when(board1.withinBorders(anyInt(), anyInt())).thenReturn(false);
+        boardField = Cell.class.getDeclaredField("board");
+        boardField.setAccessible(true);
+        boardField.set(cell, board1);
+        assertFalse(cell.boardInvariant());
+    }
+
+    //Survived Mutant 50.java
+    @Test
+    public void testCellInvariant() throws NoSuchFieldException, IllegalAccessException {
+        when(board1.withinBorders(anyInt(), anyInt())).thenReturn(true);
+        Cell cell = new Cell(0, 0, board1);
+
+        assertTrue(cell.invariant());
+
+        Field boardField = Cell.class.getDeclaredField("board");
+        boardField.setAccessible(true);
+        boardField.set(cell, null);
+
+        assertFalse(cell.invariant());
+    }
+
+    //Survived Mutant 55.java - 56.java
+    @Test
+    public void testCellOffsets() throws NoSuchFieldException, IllegalAccessException {
+        Board board = new Board(10,10);
+
+        assertEquals(board.getCell(2,2).cellAtOffset(-1, 0), board.getCell(1,2));
+        assertEquals(board.getCell(2,2).cellAtOffset(1, 0), board.getCell(3,2));
+        assertEquals(board.getCell(2,2).cellAtOffset(0, -1), board.getCell(2,1));
+        assertEquals(board.getCell(2,2).cellAtOffset(0, 1), board.getCell(2,3));
+        assertEquals(board.getCell(2,2).cellAtOffset(-1, -1), board.getCell(1,1));
+        assertEquals(board.getCell(2,2).cellAtOffset(1, 1), board.getCell(3,3));
     }
 }

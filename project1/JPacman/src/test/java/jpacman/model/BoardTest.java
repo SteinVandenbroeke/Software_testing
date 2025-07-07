@@ -6,6 +6,8 @@ import org.junit.Test;
 import jpacman.TestUtils;
 import org.mockito.Mockito;
 
+import java.lang.reflect.Field;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -156,6 +158,46 @@ public class BoardTest {
         assertFalse(theBoard.withinBorders(c4.getX(), c4.getY()));
     }
 
+    //Survived Mutant 4.java
+    @Test
+    public void consistentBoardCellAssociationTest() throws NoSuchFieldException, IllegalAccessException {
+        Board board = new Board(10,10);
+        Board board1 = new Board(10,10);
+
+        assertTrue(board.consistentBoardCellAssociation());
+
+        Cell cell1 = board.getCell(1,1);
+
+        Field boardField = Cell.class.getDeclaredField("board");
+        boardField.setAccessible(true);
+        boardField.set(cell1, board1);
+
+        assertFalse(board.consistentBoardCellAssociation());
+    }
+
+    //Survived Mutant 24.java
+    @Test
+    public void negativeWidthOrHeight() throws NoSuchFieldException, IllegalAccessException {
+        Board board = new Board(10,10);
+
+        Field heightField = Board.class.getDeclaredField("height");
+        heightField.setAccessible(true);
+        heightField.set(board, -2);
+        Field widthField = Board.class.getDeclaredField("width");
+        widthField.setAccessible(true);
+        widthField.set(board, 2);
+
+        assertFalse(board.invariant());
+
+        heightField.set(board, 2);
+        widthField.set(board, -2);
+        assertFalse(board.invariant());
+
+        heightField.set(board, -2);
+        widthField.set(board, -2);
+        assertFalse(board.invariant());
+    }
+
     private Cell mockCell(int x, int y, Board b) {
         Cell cell2 = Mockito.mock(Cell.class);
         when(cell2.getX()).thenReturn(x);
@@ -164,5 +206,4 @@ public class BoardTest {
         when(cell2.invariant()).thenReturn(true);
         return cell2;
     }
-
 }
