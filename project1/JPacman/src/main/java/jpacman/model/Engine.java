@@ -147,6 +147,10 @@ public class Engine extends Observable {
         assert invariant();
     }
 
+    public boolean isStarting() {
+        return this.starting;
+    }
+
     /**
      * (Re)start the game, unless it is playing.
      */
