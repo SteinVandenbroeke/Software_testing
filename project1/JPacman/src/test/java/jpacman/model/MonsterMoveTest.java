@@ -6,10 +6,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.lang.reflect.Field;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
-public class MonsterMoveTest {
+public class MonsterMoveTest extends GameTestCase {
 
     Board b;
     Monster m, n, collega;
@@ -125,9 +127,20 @@ public class MonsterMoveTest {
         assertEquals(this.n.getLocation(), b.getCell(0, 3));
     }
 
+    @Test
+    public void testInvariant() throws NoSuchFieldException, IllegalAccessException {
+        MonsterMove m = new MonsterMove(theMonster, playerCell);
+        Field field = MonsterMove.class.getDeclaredField("theMonster");
+        field.setAccessible(true);
+        assertTrue(m.invariant());
+        field.set(m, null);
+        assertFalse(m.invariant());
+    }
+
     protected Move createMove(Cell target) {
         move = new MonsterMove(m, target);
         return move;
     }
-
 }
+
+

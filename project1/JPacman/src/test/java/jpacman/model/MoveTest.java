@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+
 /**
  * This class offers a test suite for the Move class hierarchy
  * from Pacman. It contains test cases that should pass for
@@ -56,6 +58,41 @@ public abstract class MoveTest extends GameTestCase {
         assertTrue(aMove.moveDone());
         assertFalse(aMove.movePossible());
     }
+
+    @Test
+    public void testMoveInvariantNullMover() throws NoSuchFieldException, IllegalAccessException {
+        MovingGuest mg = thePlayer;
+        Move playerMove = new PlayerMove(thePlayer, emptyCell);
+        assertTrue(playerMove.moveInvariant());
+        Field field = Move.class.getDeclaredField("mover");
+        field.setAccessible(true);
+        field.set(playerMove, null);
+        assertFalse(playerMove.moveInvariant());
+    }
+
+    @Test
+    public void testMoveInvariantNullLocation() throws NoSuchFieldException, IllegalAccessException {
+        Move playerMove = new PlayerMove(thePlayer, emptyCell);
+        assertTrue(playerMove.moveInvariant());
+        Field field = Guest.class.getDeclaredField("location");
+        field.setAccessible(true);
+        field.set(thePlayer, null);
+        assertFalse(playerMove.moveInvariant());
+    }
+
+    @Test
+    public void MoveGuestPrecon() throws NoSuchFieldException, IllegalAccessException {
+        Move PlayerMove = new PlayerMove(thePlayer, emptyCell);
+        assertTrue(PlayerMove.moveInvariant());
+        Field field = Move .class.getDeclaredField("initialized");
+        field.setAccessible(true);
+        field.set(PlayerMove, false);
+        assertTrue(PlayerMove.tryMoveToGuestPrecondition(thePlayer));
+        thePlayer = null;
+        assertFalse(PlayerMove.tryMoveToGuestPrecondition(thePlayer));
+
+    }
+
 
 
     /**

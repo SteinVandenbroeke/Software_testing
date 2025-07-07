@@ -1,10 +1,10 @@
 package jpacman.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.lang.reflect.Field;
 
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Specialize the general MoveTest test suite to one
@@ -98,5 +98,27 @@ public class PlayerMoveTest extends MoveTest {
         assertFalse(playermove.movePossible());
         assertFalse(theGame.playerDied());
         assertFalse(theGame.playerWon());
+    }
+
+    @Test
+    public void testInvariantFood() throws IllegalAccessException, NoSuchFieldException {
+        PlayerMove playerMove = new PlayerMove(thePlayer, foodCell);
+        assertTrue(playerMove.getFoodEaten() >= 0);
+        Field field = PlayerMove.class.getDeclaredField("foodEaten");
+        field.setAccessible(true);
+        field.set(playerMove, -2);
+        assertEquals(-2, field.getInt(playerMove));
+        assertFalse(playerMove.invariant());
+    }
+
+    @Test
+    public void testInvariantPlayerNull() throws IllegalAccessException, NoSuchFieldException {
+        PlayerMove playerMove = new PlayerMove(thePlayer, foodCell);
+        assertTrue(playerMove.invariant());
+        Field field = PlayerMove.class.getDeclaredField("thePlayer");
+        field.setAccessible(true);
+        field.set(playerMove, null);
+        assertNull(field.get(playerMove));
+        assertFalse(playerMove.invariant());
     }
 }
