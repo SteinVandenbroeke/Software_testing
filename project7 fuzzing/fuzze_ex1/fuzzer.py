@@ -1,5 +1,6 @@
 import argparse
 import datetime
+import json
 import os
 import random
 import subprocess
@@ -27,7 +28,7 @@ print(f"Iteration count {args.max}")
 
 max_iterations = 10
 program_timeout = 10
-max_runtime = 60 * 5
+max_runtime = 5 #60 * 5
 max_sequence_lenght = 1000
 max_chars_in_file = 1000
 
@@ -151,7 +152,10 @@ def run_fuzzer(sequence_generator, map_generator, max_iterations_run=max_iterati
 
     print(report)
     print("-----------------")
-    print(summerize_report(report))
+    report_summerize = summerize_report(report)
+    print(report_summerize)
+    with open(f"{test_folder}/report.json", "a") as f:
+        json.dump(report_summerize, f)
 
 #run_fuzzer(generate_random_input_sequence, generate_random_map, max_iterations_run=max_iterations)
 # run_fuzzer(genertate_empty_sequence, generate_one_symbol, 255)
