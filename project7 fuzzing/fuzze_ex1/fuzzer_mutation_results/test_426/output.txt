@@ -1,0 +1,3 @@
+exit_code: -1
+input_sequence: DDLLULULULUURRRDDDDQ
+errorcode: Process took too long and was killed.program_output: Process took too long and was killed.

@@ -1,0 +1,3 @@
+exit_code: 0
+input_sequence: DDLLULULQLUURRRDDDDQE
+errorcode: program_output: 

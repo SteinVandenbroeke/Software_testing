@@ -192,31 +192,34 @@ class FuzzerTypeString(enum.Enum):
 def run_fuzzer_mutation(max_iterations_run=max_iterations):
     report = [None] * max_iterations_run
     start_time = datetime.datetime.now()
-    OG_seq = "SUURRRDDDDDLQE"
+    OG_seq = "DDLLULULULUURRRDDDDQE"
     OG_map = fixed_working_map()
+    print("Normal run mutation", os.system(f'java -jar jpacman-3.0.1.jar {"valid_input/sample.map"} {"DDLLULULULUURRRDDDDQE"}'))
     for i in range(max_iterations_run):
-        sequence = "SUURRRDDDDDLQE"
+        sequence = "DDLLULULULUURRRDDDDQE"
         map = fixed_working_map()
-        mutation = random.choice(list(FuzzerTypeString))
-        # Choose random mutation from ENUM
-        if mutation == FuzzerTypeString.ADD:
-            index = random.randint(0, len(sequence))
-            char = random.choice(["E", "S", "U", "D", "Q", "W", "L", "R"])
-            sequence = sequence[:index] + char + sequence[index:]
-        elif mutation == FuzzerTypeString.CHANGE:
-            index = random.randint(0, len(sequence) - 1)
-            char = random.choice(["E", "S", "U", "D", "Q", "W", "L", "R"])
-            sequence = sequence[:index] + char + sequence[index + 1:]
-        elif mutation == FuzzerTypeString.REMOVE:
-            index_to_remove = random.randint(0, len(sequence) - 1)
-            sequence = sequence[:index_to_remove] + sequence[index_to_remove + 1:]
-
-        # Mutate map with a CHANGE
-        index = randint(0, len(map) - 1)
-        while map[index] == "\n":
+        decision = random.choice([True, False])
+        if decision:
+            mutation = random.choice(list(FuzzerTypeString))
+            # Choose random mutation from ENUM
+            if mutation == FuzzerTypeString.ADD:
+                index = random.randint(0, len(sequence))
+                char = random.choice(["E", "S", "U", "D", "Q", "W", "L", "R"])
+                sequence = sequence[:index] + char + sequence[index:]
+            elif mutation == FuzzerTypeString.CHANGE:
+                index = random.randint(0, len(sequence) - 1)
+                char = random.choice(["E", "S", "U", "D", "Q", "W", "L", "R"])
+                sequence = sequence[:index] + char + sequence[index + 1:]
+            elif mutation == FuzzerTypeString.REMOVE:
+                index_to_remove = random.randint(0, len(sequence) - 1)
+                sequence = sequence[:index_to_remove] + sequence[index_to_remove + 1:]
+        else:
+            # Mutate map with a CHANGE
             index = randint(0, len(map) - 1)
-        char = random.choice(["W", "F", "0", "P", "M"])
-        map = map[:index] + char + map[index +1:]
+            while map[index] == "\n":
+                index = randint(0, len(map) - 1)
+            char = random.choice(["W", "F", "0", "P", "M"])
+            map = map[:index] + char + map[index +1:]
 
         os.mkdir(f"{test_folder}/test_{i}")
         with open(f"{test_folder}/test_{i}/input_map.txt", "a") as f:
