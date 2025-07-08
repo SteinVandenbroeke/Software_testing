@@ -21,7 +21,9 @@ args = parser.parse_args()
 
 print(f"Iteration count {args.max}")
 
-max_iterations = int(args.max)
+max_iterations = 10
+if args.max is not None:
+    max_iterations = int(args.max)
 
 def generate_random_input_sequence():
     length_sequence = randint(0, 1000)
