@@ -46,39 +46,38 @@ def generate_random_map():
     sequence = ''.join(chr(randint(0, 255)) for _ in range(length_sequence))
     return sequence
 
-def generate_valid_map():
-
-
 report = [None] * max_iterations
 print("Normal run", os.system(f'java -jar jpacman-3.0.1.jar {"valid_input/sample.map"} {"SUUWDE"}'))
 
+def run_fuzzer(sequence_generator, map_generator):
+    start_time = datetime.datetime.now()
+    for i in range(max_iterations):
+        os.mkdir(f"{test_folder}/test_{i}")
+        with open(f"{test_folder}/test_{i}/input_map.txt", "a") as f:
+            f.write(map_generator())
+        map_path = f"{test_folder}/test_{i}/input_map.txt"
+        random_sequence = sequence_generator()
 
-start_time = datetime.datetime.now()
-for i in range(max_iterations):
-    os.mkdir(f"{test_folder}/test_{i}")
-    with open(f"{test_folder}/test_{i}/input_map.txt", "a") as f:
-        f.write(generate_random_map())
-    map_path = f"{test_folder}/test_{i}/input_map.txt"
-    random_sequence = generate_random_input_sequence()
+        with open(f"{test_folder}/test_{i}/input_sequence.txt", "a") as f:
+            f.write(random_sequence)
 
-    with open(f"{test_folder}/test_{i}/input_sequence.txt", "a") as f:
-        f.write(random_sequence)
+        try:
+            result = subprocess.run(
+                ['java', '-jar', 'jpacman-3.0.1.jar', map_path, random_sequence],
+                timeout=program_timeout
+            )
+            print("Return code:", result.returncode)
+            runcode = result.returncode
+        except subprocess.TimeoutExpired:
+            print("Process took too long and was killed.")
+            runcode = -1
 
-    try:
-        result = subprocess.run(
-            ['java', '-jar', 'jpacman-3.0.1.jar', map_path, random_sequence],
-            timeout=program_timeout
-        )
-        print("Return code:", result.returncode)
-        runcode = result.returncode
-    except subprocess.TimeoutExpired:
-        print("Process took too long and was killed.")
-        runcode = -1
+        if datetime.datetime.now() - start_time > datetime.timedelta(seconds=max_runtime):
+            print(f"Exit fuzzing loop, becaues max run time {max_runtime} exceeded")
+            break
 
-    if datetime.datetime.now() - start_time > datetime.timedelta(seconds=max_runtime):
-        print(f"Exit fuzzing loop, becaues max run time {max_runtime} exceeded")
-        break
+        report[i] = runcode
 
-    report[i] = runcode
+    print(report)
 
-print(report)
+run_fuzzer(generate_random_input_sequence, generate_random_input_sequence)
