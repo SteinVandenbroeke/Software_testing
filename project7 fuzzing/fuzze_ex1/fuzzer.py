@@ -37,6 +37,7 @@ def generate_random_map():
 
 
 report = [None] * max_iterations
+print("Normal run", os.system(f'java -jar jpacman-3.0.1.jar {"valid_input/sample.map"} {"SUUWDE"}'))
 
 for i in range(max_iterations):
     os.mkdir(f"{test_folder}/test_{i}")
@@ -44,7 +45,7 @@ for i in range(max_iterations):
         f.write(generate_random_map())
     map_path = f"{test_folder}/test_{i}/input_map.txt"
     random_sequence = generate_random_input_sequence()
-    runcode = os.system(f'java -jar jpacman-3.0.1 jar {map_path} {random_sequence}')
+    runcode = os.system(f'java -jar jpacman-3.0.1.jar {map_path} {random_sequence}')
     report[i] = runcode
 
 print(report)
