@@ -180,5 +180,6 @@ one_symbol_counter.increment()
 #run_fuzzer(generate_one_symbol, fixed_working_map, 255)
 run_fuzzer(ex5_generate_sequence_with_information, ex5_generate_map_with_information, 1000)
 
+
 #
 #
