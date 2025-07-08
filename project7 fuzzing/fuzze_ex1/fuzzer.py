@@ -38,7 +38,7 @@ report = [None] * max_iterations
 
 for i in range(max_iterations):
     os.mkdir(f"{test_folder}/test_{i}")
-    with open("input_map.txt", "a") as f:
+    with open(f"{test_folder}/test_{i}/input_map.txt", "a") as f:
         f.write(generate_random_map())
     map_path = f"{test_folder}/test_{i}/input_map.txt"
     random_sequence = generate_random_input_sequence()
