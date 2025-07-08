@@ -28,7 +28,7 @@ print(f"Iteration count {args.max}")
 
 max_iterations = 10
 program_timeout = 10
-max_runtime = 5 #60 * 5
+max_runtime =60 * 10
 max_sequence_lenght = 1000
 max_chars_in_file = 1000
 
@@ -83,16 +83,31 @@ def generate_one_symbol():
 def genertate_empty_sequence():
     return ""
 
+import random
+
 def ex5_generate_map_with_information():
-    amount_of_lines = randint(1, 20)
-    amount_of_characters = randint(1, 20)
+    amount_of_lines = random.randint(1, 20)
+    amount_of_characters = random.randint(1, 20)
+
+    # Choose a random location for 'P'
+    total_cells = amount_of_lines * amount_of_characters
+    p_position = random.randint(0, total_cells - 1)
+
+    # Allowed characters excluding 'P'
+    other_chars = ["W", "F", "0", "M"]
 
     sequence = ""
-    for i in range(amount_of_lines):
-        for j in range(amount_of_characters):
-            sequence += ''.join(random.choice(["W", "F", "0", "P", "M"]) for _ in range(amount_of_characters))
+    for i in range(total_cells):
+        if i == p_position:
+            sequence += "P"
+        else:
+            sequence += random.choice(other_chars)
+        # Add newline after each row
+        if (i + 1) % amount_of_characters == 0:
             sequence += "\n"
+
     return sequence
+
 
 def ex5_generate_sequence_with_information():
     length_sequence = randint(0, 20)
@@ -163,7 +178,7 @@ one_symbol_counter.reset()
 one_symbol_counter.increment()
 
 #run_fuzzer(generate_one_symbol, fixed_working_map, 255)
-run_fuzzer(ex5_generate_sequence_with_information, ex5_generate_map_with_information, 10000)
+run_fuzzer(ex5_generate_sequence_with_information, ex5_generate_map_with_information, 1000)
 
 #
 #
