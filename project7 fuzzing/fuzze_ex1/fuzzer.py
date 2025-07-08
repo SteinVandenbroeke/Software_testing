@@ -40,6 +40,8 @@ if args.runtime is not None:
 def summerize_report(report):
     count_errors = {}
     for item in report:
+        if item is None:
+            continue
         if f"{item['exit_code']}_{item['program_output']}" not in count_errors.keys():
             count_errors[f"{item['exit_code']}_{item['program_output']}"] = {"count": 0, "test_ids":  []}
         count_errors[f"{item['exit_code']}_{item['program_output']}"]["count"] += 1
@@ -83,10 +85,11 @@ def genertate_empty_sequence():
 def ex5_generate_map_with_information():
     amount_of_lines = randint(1, 20)
     amount_of_characters = randint(1, 20)
+
     sequence = ""
     for i in range(amount_of_lines):
         for j in range(amount_of_characters):
-            sequence += ''.join(random.choice(["W", "F", "0", "P", "M", "b", "c", "d", "e"]) for _ in range(amount_of_characters))
+            sequence += ''.join(random.choice(["W", "F", "0", "P", "M"]) for _ in range(amount_of_characters))
             sequence += "\n"
     return sequence
 
@@ -94,6 +97,7 @@ def ex5_generate_sequence_with_information():
     length_sequence = randint(0, 20)
     sequence = ''.join(random.choice(["E", "S", "U", "D", "Q", "W", "L", "R"]) for _ in range(length_sequence))
     return sequence
+
 
 def fixed_working_map():
     with open('valid_input/sample.map', 'r') as file:
@@ -149,7 +153,7 @@ def run_fuzzer(sequence_generator, map_generator, max_iterations_run=max_iterati
     print("-----------------")
     print(summerize_report(report))
 
-# run_fuzzer(generate_random_input_sequence, generate_random_map, max_iterations_run=max_iterations)
+#run_fuzzer(generate_random_input_sequence, generate_random_map, max_iterations_run=max_iterations)
 # run_fuzzer(genertate_empty_sequence, generate_one_symbol, 255)
 one_symbol_counter.reset()
 one_symbol_counter.increment()
