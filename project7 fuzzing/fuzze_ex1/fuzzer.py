@@ -183,3 +183,81 @@ run_fuzzer(ex5_generate_sequence_with_information, ex5_generate_map_with_informa
 
 #
 #
+import enum
+class FuzzerTypeString(enum.Enum):
+    ADD = 1
+    CHANGE = 2
+    REMOVE = 3
+
+def run_fuzzer_mutation(max_iterations_run=max_iterations):
+    report = [None] * max_iterations_run
+    start_time = datetime.datetime.now()
+    OG_seq = "SUURRRDDDDDLQE"
+    OG_map = fixed_working_map()
+    for i in range(max_iterations_run):
+        sequence = "SUURRRDDDDDLQE"
+        map = fixed_working_map()
+        mutation = random.choice(list(FuzzerTypeString))
+        # Choose random mutation from ENUM
+        if mutation == FuzzerTypeString.ADD:
+            index = random.randint(0, len(sequence))
+            char = random.choice(["E", "S", "U", "D", "Q", "W", "L", "R"])
+            sequence = sequence[:index] + char + sequence[index:]
+        elif mutation == FuzzerTypeString.CHANGE:
+            index = random.randint(0, len(sequence) - 1)
+            char = random.choice(["E", "S", "U", "D", "Q", "W", "L", "R"])
+            sequence = sequence[:index] + char + sequence[index + 1:]
+        elif mutation == FuzzerTypeString.REMOVE:
+            index_to_remove = random.randint(0, len(sequence) - 1)
+            sequence = sequence[:index_to_remove] + sequence[index_to_remove + 1:]
+
+        # Mutate map with a CHANGE
+        index = randint(0, len(map) - 1)
+        while map[index] == "\n":
+            index = randint(0, len(map) - 1)
+        char = random.choice(["W", "F", "0", "P", "M"])
+        map = map[:index] + char + map[index +1:]
+
+        os.mkdir(f"{test_folder}/test_{i}")
+        with open(f"{test_folder}/test_{i}/input_map.txt", "a") as f:
+            f.write(map)
+        map_path = f"{test_folder}/test_{i}/input_map.txt"
+
+
+        try:
+            result = subprocess.run(
+                ['java', '-jar', 'jpacman-3.0.1.jar', map_path, sequence],
+                timeout=program_timeout,
+                capture_output=True,
+                text=True  # This gives you strings instead of bytes
+            )
+            print("Return code:", result.returncode)
+            runcode = result.returncode
+            errorcode = result.stderr
+            program_output = result.stdout
+        except subprocess.TimeoutExpired:
+            print("Process took too long and was killed.")
+            runcode = -1
+            errorcode = "Process took too long and was killed."
+            program_output = "Process took too long and was killed."
+
+        if datetime.datetime.now() - start_time > datetime.timedelta(seconds=max_runtime):
+            print(f"Exit fuzzing loop, becaues max run time {max_runtime} exceeded")
+            break
+
+        report[i] = {"exit_code": runcode, "errorcode": errorcode, "program_output": program_output, "input_sequence": sequence, "test_id": i}
+
+        with open(f"{test_folder}/test_{i}/output.txt", "a") as f:
+            f.write(f"exit_code: {runcode}\n" +
+                    f"input_sequence: {sequence}\n" +
+                    f"errorcode: {errorcode}"
+                    + f"program_output: {program_output}")
+
+    print(report)
+    print("-----------------")
+    print(summerize_report(report))
+    report_summerize = summerize_report(report)
+    with open(f"{test_folder}/report.json", "a") as f:
+        json.dump(report_summerize, f)
+
+run_fuzzer_mutation(100000000)
