@@ -27,7 +27,7 @@ print(f"Iteration count {args.max}")
 
 max_iterations = 10
 program_timeout = 10
-max_runtime = 100000
+max_runtime = 60 * 5
 max_sequence_lenght = 1000
 max_chars_in_file = 1000
 
@@ -81,8 +81,8 @@ def genertate_empty_sequence():
     return ""
 
 def ex5_generate_map_with_information():
-    amount_of_lines = randint(1, 50)
-    amount_of_characters = randint(1, 50)
+    amount_of_lines = randint(1, 20)
+    amount_of_characters = randint(1, 20)
     sequence = ""
     for i in range(amount_of_lines):
         for j in range(amount_of_characters):
@@ -91,8 +91,8 @@ def ex5_generate_map_with_information():
     return sequence
 
 def ex5_generate_sequence_with_information():
-    length_sequence = randint(0, max_sequence_lenght)
-    sequence = ''.join(random.choice(["W", "F", "0", "P", "M", "b", "c", "d", "e"]) for _ in range(length_sequence))
+    length_sequence = randint(0, 20)
+    sequence = ''.join(random.choice(["E", "S", "U", "D", "Q", "W", "L", "R"]) for _ in range(length_sequence))
     return sequence
 
 def fixed_working_map():
@@ -101,10 +101,10 @@ def fixed_working_map():
     return content
 
 
-report = [None] * max_iterations
 print("Normal run", os.system(f'java -jar jpacman-3.0.1.jar {"valid_input/sample.map"} {"SUUWDE"}'))
 
 def run_fuzzer(sequence_generator, map_generator, max_iterations_run=max_iterations):
+    report = [None] * max_iterations_run
     start_time = datetime.datetime.now()
     for i in range(max_iterations_run):
         os.mkdir(f"{test_folder}/test_{i}")
@@ -146,6 +146,7 @@ def run_fuzzer(sequence_generator, map_generator, max_iterations_run=max_iterati
                     + f"program_output: {program_output}")
 
     print(report)
+    print("-----------------")
     print(summerize_report(report))
 
 # run_fuzzer(generate_random_input_sequence, generate_random_map, max_iterations_run=max_iterations)
@@ -153,9 +154,8 @@ def run_fuzzer(sequence_generator, map_generator, max_iterations_run=max_iterati
 one_symbol_counter.reset()
 one_symbol_counter.increment()
 
-run_fuzzer(generate_one_symbol, fixed_working_map, 255)
-
-
+#run_fuzzer(generate_one_symbol, fixed_working_map, 255)
+run_fuzzer(ex5_generate_sequence_with_information, ex5_generate_map_with_information, 10000)
 
 #
 #
